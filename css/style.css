@@ -451,3 +451,49 @@ button.activeTab {
     margin-left: 0px;
   }
 }
+
+/**
+ * feedback 2
+ */
+ .btn-form-submit:hover {
+  background: #F2DA56;
+}
+
+.btn-form-submit:active {
+  background: #F6BC25;
+}
+
+/**
+ * feedback 3
+ */
+ .ml-4 {
+  height: 23px;
+  width: 20px;
+}
+
+/**
+ * feedback 4
+ */
+ .loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 75vh;
+  background: #F8F8F8;
+}
+
+.displayHidden {
+  display: none !important;
+}
+
+/**
+ * feedback 5
+ */
+ @media (max-width: 767px) {
+  .input-group.error .error-msg {
+    bottom: 32px;
+    width: 100%;
+    position: unset;
+  }
+}

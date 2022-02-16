@@ -29,7 +29,7 @@
     document.getElementsByClassName('error-msg')[0].innerHTML = errorMessage;
     inputField.placeholder = placeHolder;
     inputField.searchType = searchType;
-    inputField.value = '';
+    inputField.value = ''; //clears field on tab btn change
     activeBtn.classList.add('activeTab');
     nonActiveBtn.classList.remove('activeTab');
   }
@@ -76,6 +76,8 @@
    * @param {String} url
    */
   function displayResult (url) {
+    document.getElementsByClassName('mainPage')[0].classList.add('displayHidden'); //hide main area - feedback 4
+    document.getElementsByClassName('loader')[0].classList.remove('displayHidden'); //display loader - feedback 4
     fetch(url)
         .then(response => response.text())
         .then(contents => {
