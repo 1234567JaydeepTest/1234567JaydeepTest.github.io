@@ -8,11 +8,11 @@
   if (inputField)
     inputField.searchType = 'email'; //searchType will be use to identify the type of search, default to email
 
-  btnEmail.addEventListener("click", e => {
+  btnEmail.addEventListener('click', e => {
     setRequiredValues( 'Please enter a valid email address', 'ENTER AN EMAIL ADDRESS', 'email', btnEmail, btnPhone);
   });
 
-  btnPhone.addEventListener("click", e => {
+  btnPhone.addEventListener('click', e => {
     setRequiredValues('Please enter a valid phone number', 'ENTER A PHONE NUMBER', 'phone', btnPhone, btnEmail);
   });
 
@@ -34,11 +34,11 @@
     nonActiveBtn.classList.remove('activeTab');
   }
 
-  btnSearch.addEventListener("click", e => {
+  btnSearch.addEventListener('click', e => {
     createUrl(e);
   });
 
-  inputField.addEventListener('keypress', e => {
+  inputField.addEventListener('keydown', e => {
     if (e.keycode === '13') { //Search will trigger if enter key is pressed
       createUrl(e);
     }
@@ -56,17 +56,17 @@
       inputValue = inputValue.toLowerCase();
 
       if (inputValue.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) { //checks if email id entered is valid or not
-        document.querySelector('input[type="text"]').parentNode.classList.remove("error");
+        document.querySelector('input[type="text"]').parentNode.classList.remove('error');
         displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?email=${inputValue}`);
       } else {
-        document.querySelector('input[type="text"]').parentNode.classList.add("error");
+        document.querySelector('input[type="text"]').parentNode.classList.add('error');
       }
     } else if (inputField.searchType === 'phone') {
       if (inputValue.match(/^[0-9]{10}$/)) {  //checks if phone number entered is valid or not
-        document.querySelector('input[type="text"]').parentNode.classList.remove("error");
+        document.querySelector('input[type="text"]').parentNode.classList.remove('error');
         displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=${inputValue}`);
       } else {
-        document.querySelector('input[type="text"]').parentNode.classList.add("error");
+        document.querySelector('input[type="text"]').parentNode.classList.add('error');
       }
     }
   }
@@ -81,8 +81,8 @@
     fetch(url)
         .then(response => response.text())
         .then(contents => {
-          localStorage.setItem("userObject", contents); //store details in localStorage
-          window.location.href = "result.html";
+          localStorage.setItem('userObject', contents); //store details in localStorage
+          window.location.href = 'result.html';
         })
         .catch((e) => console.log(e));
   }
