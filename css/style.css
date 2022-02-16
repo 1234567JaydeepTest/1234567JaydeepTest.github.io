@@ -386,3 +386,68 @@ section {
   content: '|';
   padding-left: 5px;
 }
+
+/**
+ * new feature
+*/
+.input-btn-container {
+  margin-bottom: 15px;
+}
+
+.tabBtn {
+  background: #004A80;
+  border: 3px solid #F6BC25;
+  border-radius: 6px;
+  font-family: Lato-Bold;
+  font-size: 15px;
+  color: #F6BC25;
+  letter-spacing: 0;
+  font-weight: 700;
+  height: 40px;
+  width: 148px;
+  margin-left: 15px;
+}
+
+.activeTab:before {
+  border: solid;
+  border-color: #F6BC25 transparent;
+  border-width: 10px 6px 0 6px;
+  content: "";
+  left: 45%;
+  bottom: -10px;
+  position: absolute;
+}
+
+button.tabBtn:active,
+button.tabBtn:focus,
+button.tabBtn:focus-visible,
+button.activeTab {
+  color: #004A80;
+  background: #F6BC25;
+  outline: none;
+  position:relative;
+}
+
+.type-of-search {
+  font-family: Lato-Regular;
+  font-size: 16px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+@media (max-width: 767px) {
+  .type-of-search {
+    display: none;
+  }
+
+  .input-btn-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .tabBtn {
+    width: 48%;
+    margin-left: 0px;
+  }
+}

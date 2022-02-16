@@ -27,10 +27,14 @@
           <h1 class="mb-3">Start Your Search!</h1>
           <h2>Look up for people’s name, photos and online profiles with their email address or phone number. See what you find!</h2>
         </div>
-        
+        <div class = "input-btn-container">
+          <span class="type-of-search">TYPE OF SEARCH: </span>
+          <button id="btn-email" class="tabBtn activeTab">EMAIL ADDRESS</button>
+          <button id="btn-phone" class="tabBtn">PHONE NUMBER</button>
+        </div>
         <form>
           <div class="input-group">
-            <input class="form-control" type="text" name="email" placeholder="Enter an Email Address" />
+            <input class="form-control" type="text" name="inputField" placeholder="Enter an Email Address" />
             <p class="error-msg">Please enter a valid email address</p>
             <button id="btn-search" class="btn btn-form-submit text-uppercase" type="submit">Go!</button>
           </div>
