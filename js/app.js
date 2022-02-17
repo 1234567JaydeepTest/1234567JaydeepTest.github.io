@@ -1,9 +1,9 @@
 (()=> {
 
-  let btnEmail = document.getElementById('btn-email'),
-      btnPhone = document.getElementById('btn-phone'),
-      btnSearch = document.getElementById('btn-search'),
-      inputField = document.getElementsByName('inputField')[0],
+  let btnEmail = document.querySelector('#btn-email'),
+      btnPhone = document.querySelector('#btn-phone'),
+      btnSearch = document.querySelector('#btn-search'),
+      inputField = document.querySelector('input[name="inputField"]'),
       inputText = document.querySelector('input[type="text"]');
 
   if (inputField)
@@ -28,7 +28,7 @@
   */
   function setRequiredValues(errorMessage, placeHolder, searchType, activeBtn, nonActiveBtn) {
     if (searchType !== inputField.searchType) { //if clicked on same button values should persist
-      document.getElementsByClassName('error-msg')[0].innerHTML = errorMessage;
+      document.querySelector('.error-msg').innerHTML = errorMessage;
       inputField.placeholder = placeHolder;
       inputField.searchType = searchType;
       inputField.value = ''; //clears field on tab btn change
@@ -49,7 +49,7 @@
   });
 
   /**
-   * function validates the input and creates the url according to selected search
+   * function passes the values to validate according to search type
    * @param {object} e
    */
   function createUrl (e) {
@@ -57,21 +57,25 @@
     localStorage.clear();
     let inputValue = inputField.value;
     if (inputField.searchType === 'email') {
-      inputValue = inputValue.toLowerCase();
-
-      if (inputValue.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) { //checks if email id entered is valid or not
-        inputText.parentNode.classList.remove('error');
-        displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?email=${inputValue}`);
-      } else {
-        inputText.parentNode.classList.add('error');
-      }
+      validateInput(inputValue.toLowerCase(), /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, inputField.searchType);
     } else if (inputField.searchType === 'phone') {
-      if (inputValue.match(/^[0-9]{10}$/)) {  //checks if phone number entered is valid or not
-        inputText.parentNode.classList.remove('error');
-        displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=${inputValue}`);
-      } else {
-        inputText.parentNode.classList.add('error');
-      }
+      validateInput(inputValue, /^[0-9]{10}$/, inputField.searchType);
+    }
+  }
+
+  /**
+   * function validates the input and creates the url according to selected search
+   * @param {String} inputValue - value entered by user
+   * @param {String} regex - regex pattern for required search
+   * @param {String} inputType - search type i.e email/phone
+   */
+  function validateInput(inputValue, regex, inputType) {
+    if (inputValue.match(regex)) { //checks if input entered is valid or not
+      let URL = 'https://ltv-data-api.herokuapp.com/api/v1/records.json?';
+      inputText.parentNode.classList.remove('error');
+      fetchResult(`${URL}${inputType}=${inputValue}`);
+    } else {
+      inputText.parentNode.classList.add('error');
     }
   }
 
@@ -79,9 +83,9 @@
    * function makes the API call and redirects to result.html page
    * @param {String} url
    */
-  function displayResult (url) {
-    document.getElementsByClassName('mainPage')[0].classList.add('displayHidden'); //hide main area - feedback 4
-    document.getElementsByClassName('loader')[0].classList.remove('displayHidden'); //display loader - feedback 4
+  function fetchResult (url) {
+    document.querySelector('.mainPage').classList.add('d-none'); //hide main area - feedback 4
+    document.querySelector('.loader').classList.remove('d-none'); //display loader - feedback 4
     fetch(url)
         .then(response => response.text())
         .then(contents => {
