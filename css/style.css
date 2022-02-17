@@ -454,6 +454,20 @@ button.activeTab {
   }
 }
 
+.loaderMessage {
+  margin-top: 25px;
+}
+
+.loaderIcon {
+  animation: rotate 0.5s linear infinite alternate;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* ************************************************************
 ***************************************************************
 --- Feedback 2 ---
