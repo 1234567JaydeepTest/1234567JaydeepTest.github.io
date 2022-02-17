@@ -3,7 +3,8 @@
   let btnEmail = document.getElementById('btn-email'),
       btnPhone = document.getElementById('btn-phone'),
       btnSearch = document.getElementById('btn-search'),
-      inputField = document.getElementsByName('inputField')[0];
+      inputField = document.getElementsByName('inputField')[0],
+      inputText = document.querySelector('input[type="text"]');
 
   if (inputField)
     inputField.searchType = 'email'; //searchType will be use to identify the type of search, default to email
@@ -26,12 +27,15 @@
    * @param {Object} nonActiveBtn - non selected search button
   */
   function setRequiredValues(errorMessage, placeHolder, searchType, activeBtn, nonActiveBtn) {
-    document.getElementsByClassName('error-msg')[0].innerHTML = errorMessage;
-    inputField.placeholder = placeHolder;
-    inputField.searchType = searchType;
-    inputField.value = ''; //clears field on tab btn change
-    activeBtn.classList.add('activeTab');
-    nonActiveBtn.classList.remove('activeTab');
+    if (searchType !== inputField.searchType) { //if clicked on same button values should persist
+      document.getElementsByClassName('error-msg')[0].innerHTML = errorMessage;
+      inputField.placeholder = placeHolder;
+      inputField.searchType = searchType;
+      inputField.value = ''; //clears field on tab btn change
+      activeBtn.classList.add('activeTab');
+      nonActiveBtn.classList.remove('activeTab');
+      inputText.parentNode.classList.remove('error'); //clears error on tab change
+    }
   }
 
   btnSearch.addEventListener('click', e => {
@@ -56,17 +60,17 @@
       inputValue = inputValue.toLowerCase();
 
       if (inputValue.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) { //checks if email id entered is valid or not
-        document.querySelector('input[type="text"]').parentNode.classList.remove('error');
+        inputText.parentNode.classList.remove('error');
         displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?email=${inputValue}`);
       } else {
-        document.querySelector('input[type="text"]').parentNode.classList.add('error');
+        inputText.parentNode.classList.add('error');
       }
     } else if (inputField.searchType === 'phone') {
       if (inputValue.match(/^[0-9]{10}$/)) {  //checks if phone number entered is valid or not
-        document.querySelector('input[type="text"]').parentNode.classList.remove('error');
+        inputText.parentNode.classList.remove('error');
         displayResult(`https://ltv-data-api.herokuapp.com/api/v1/records.json?phone=${inputValue}`);
       } else {
-        document.querySelector('input[type="text"]').parentNode.classList.add('error');
+        inputText.parentNode.classList.add('error');
       }
     }
   }
